@@ -5,11 +5,12 @@ import { UpdateBreedDto } from './dto/update-breed.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Role } from '../common/enums/rol.enum';
 
-@Auth(Role.Admin)
+
 @Controller('breeds')
 export class BreedsController {
   constructor(private readonly breedsService: BreedsService) {}
 
+  @Auth(Role.Admin)
   @Post()
   create(@Body() createBreedDto: CreateBreedDto) {
     return this.breedsService.create(createBreedDto);
@@ -25,11 +26,13 @@ export class BreedsController {
     return this.breedsService.findOne(id);
   }
 
+  @Auth(Role.Admin)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBreedDto: UpdateBreedDto) {
     return this.breedsService.update(+id, updateBreedDto);
   }
 
+  @Auth(Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.breedsService.remove(+id);
