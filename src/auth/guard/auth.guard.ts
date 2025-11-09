@@ -20,17 +20,13 @@ constructor(
     const token = this.extractTokenFromHeader(request);
     
     console.log(token)
+    
     if(!token){
       throw new UnauthorizedException("Token incorrecto}");
     }
 
     try{
-      const payload = await this.jwtService.verifyAsync(
-        token,
-        {
-          secret: jwtConstants.secret,
-        }
-      );
+      const payload = await this.jwtService.verifyAsync(token);
       console.log(payload)
       request.user = payload;
       
